@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CalculadoraBasica</string>
+    <string name="history_field">Histórico</string>
+</resources>
