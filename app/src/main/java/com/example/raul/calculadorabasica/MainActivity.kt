@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        bt_ce.setOnClickListener { txtVisor.text = "0" }
     }
 
     fun onNumberClicked(view: View){
