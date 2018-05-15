@@ -1,5 +1,6 @@
 package com.example.raul.calculadorabasica
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -40,6 +41,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // fonte: https://medium.com/@biratkirat/4-starting-activities-in-kotlin-ae3642126d3
+        bt_historico.setOnClickListener {
+            var intent = Intent(this, HistoricoActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun calculateResult(operator: Char) {
@@ -49,15 +56,11 @@ class MainActivity : AppCompatActivity() {
                 '-' -> this.firstNumber!! - this.secondNumber!!
                 'x' -> this.firstNumber!! * this.secondNumber!!
                 '/' -> {
-                    // TODO: int / int => double
-                    if(this.secondNumber != 0)
-                        this.firstNumber!! / this.secondNumber!!
+                    if(this.secondNumber != 0) {
+                        (this.firstNumber!!).toDouble() / (this.secondNumber!!).toDouble()
+                    }
                     else {
-                        // TODO: Anko title changing toolbar title
-                        alert("Cannot divide by zero.") {
-                            title = "Mistake Alert"
-                            yesButton { toast("We learn from failure, not from success!") }
-                        }.show()
+                        toast("Cannot divide by zero.")
                         this.txtVisor.text = "0"
                         null
                     }
@@ -65,7 +68,11 @@ class MainActivity : AppCompatActivity() {
                 else -> null
             }
             if(result != null) {
-                this.txtVisor.text = result.toString()
+                if(operator != '/')
+                    this.txtVisor.text = result.toString()
+                else
+                    this.txtVisor.text = "%.2f".format(result)
+
                 this.isResult = true
             }
         }

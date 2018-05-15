@@ -159,6 +159,7 @@
                     android:layout_height="@dimen/bt_height" />
             </LinearLayout>
             <Button
+                android:id="@+id/bt_historico"
                 android:text="@string/history_field"
                 android:textColor="#6E6D6D"
                 android:layout_marginTop="25dp"
