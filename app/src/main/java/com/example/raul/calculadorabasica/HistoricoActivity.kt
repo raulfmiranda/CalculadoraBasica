@@ -3,6 +3,7 @@ package com.example.raul.calculadorabasica
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_historico.*
 
 class HistoricoActivity : AppCompatActivity() {
@@ -15,6 +16,15 @@ class HistoricoActivity : AppCompatActivity() {
         addContas()
         rv_contas.layoutManager = LinearLayoutManager(this)
         rv_contas.adapter = ContaAdapter(contas, this)
+
+        var actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item?.itemId == android.R.id.home)
+            finish()
+        return super.onOptionsItemSelected(item)
     }
 
     fun addContas() {
@@ -22,6 +32,4 @@ class HistoricoActivity : AppCompatActivity() {
         contas.add("2 + 3 = 5")
         contas.add("7 - 8 = -1")
     }
-    //TODO: Corrigir RecyclerView - cada linha está ocupando a tela toda (one row per screen =/)
-    //TODO: Fazer Back button
 }

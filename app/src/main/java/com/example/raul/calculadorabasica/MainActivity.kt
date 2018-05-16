@@ -1,6 +1,7 @@
 package com.example.raul.calculadorabasica
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,10 +14,16 @@ class MainActivity : AppCompatActivity() {
     private var firstNumber:Int? = null
     private var secondNumber:Int? = null
     private var isResult:Boolean = false
+    private var contas:ArrayList<Conta> = ArrayList<Conta>()
+    private var shaPrefHelper = SharedPreferencesHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if(contas == null || contas.size == 0) {
+            // TODO: Recuperar Contas do sharedpreferences
+        }
 
         bt_ce.setOnClickListener { txtVisor.text = "0" }
 
