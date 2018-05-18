@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
 
@@ -16,13 +19,18 @@ class MainActivity : AppCompatActivity() {
     private var isResult:Boolean = false
     private var contas:ArrayList<Conta> = ArrayList<Conta>()
     private var shaPrefHelper = SharedPreferencesHelper()
+    private val shaPrefKey = "contas"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         if(contas == null || contas.size == 0) {
-            // TODO: Recuperar Contas do sharedpreferences
+            var contasJson = shaPrefHelper.getText(this, shaPrefKey)
+            if(!contasJson.isNullOrBlank()) {
+                var gson = GsonBuilder().create()
+                contas = gson.fromJson(contasJson, object : TypeToken<ArrayList<Conta>>() {}.type)
+            }
         }
 
         bt_ce.setOnClickListener { txtVisor.text = "0" }
@@ -81,6 +89,12 @@ class MainActivity : AppCompatActivity() {
                     this.txtVisor.text = "%.2f".format(result)
 
                 this.isResult = true
+                var contaTxt = "$this.firstNumber $operator $this.secondNumber = $this.txtVisor.text"
+                var conta = Conta(contaTxt)
+                this.contas.add(conta)
+                val gson = GsonBuilder().setPrettyPrinting().create()
+                val jsonContas: String = gson.toJson(contas)
+                shaPrefHelper.saveText(this, shaPrefKey, jsonContas)
             }
         }
     }
