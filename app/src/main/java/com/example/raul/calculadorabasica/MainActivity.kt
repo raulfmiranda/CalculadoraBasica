@@ -89,7 +89,8 @@ class MainActivity : AppCompatActivity() {
                     this.txtVisor.text = "%.2f".format(result)
 
                 this.isResult = true
-                var contaTxt = "$this.firstNumber $operator $this.secondNumber = $this.txtVisor.text"
+                //TODO: Verificar se concatenação está correta
+                var contaTxt = "" + this.firstNumber + operator + this.secondNumber + "=" + this.txtVisor.text
                 var conta = Conta(contaTxt)
                 this.contas.add(conta)
                 val gson = GsonBuilder().setPrettyPrinting().create()
