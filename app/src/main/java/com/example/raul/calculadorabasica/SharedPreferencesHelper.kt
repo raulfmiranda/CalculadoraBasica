@@ -2,6 +2,7 @@ package com.example.raul.calculadorabasica
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
 
 class SharedPreferencesHelper {
     val prefsName = "DefaultPrefs"
@@ -19,7 +20,7 @@ class SharedPreferencesHelper {
     }
 
     fun clean(context: Context) {
-        var sharedPreferences = context.getSharedPreferences(prefsName, 0)
+        var sharedPreferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
         sharedPreferences.edit().clear().commit()
     }
 }

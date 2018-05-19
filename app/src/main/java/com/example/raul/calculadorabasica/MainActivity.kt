@@ -25,16 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        contas = ArrayList<Conta>()
-
-        if(contas == null || contas.size == 0) {
-            var contasJson = shaPrefHelper.getText(this, shaPrefKey)
-            if(!contasJson.isNullOrBlank()) {
-                var gson = GsonBuilder().create()
-                contas = gson.fromJson(contasJson, object : TypeToken<ArrayList<Conta>>() {}.type)
-            }
-        }
-
         bt_ce.setOnClickListener { txtVisor.text = "0" }
 
         bt_equal.setOnClickListener {
@@ -91,9 +81,17 @@ class MainActivity : AppCompatActivity() {
                     this.txtVisor.text = "%.2f".format(result)
 
                 this.isResult = true
-                //TODO: Verificar se concatenação está correta
                 var contaTxt = "" + this.firstNumber + operator + this.secondNumber + "=" + this.txtVisor.text
                 var conta = Conta(contaTxt)
+
+                contas.clear()
+
+                var contasJson = shaPrefHelper.getText(this, shaPrefKey)
+                if(!contasJson.isNullOrBlank()) {
+                    var gson = GsonBuilder().create()
+                    contas = gson.fromJson(contasJson, object : TypeToken<ArrayList<Conta>>() {}.type)
+                }
+
                 this.contas.add(conta)
                 val gson = GsonBuilder().setPrettyPrinting().create()
                 val jsonContas: String = gson.toJson(contas)

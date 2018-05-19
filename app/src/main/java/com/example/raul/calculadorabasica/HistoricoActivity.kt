@@ -8,7 +8,6 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_historico.*
 
-// TODO: Criar botão para limpar SharedPreferences
 class HistoricoActivity : AppCompatActivity() {
     val contasTxt: ArrayList<String> = ArrayList()
     private var contas:ArrayList<Conta> = ArrayList<Conta>()
@@ -40,6 +39,7 @@ class HistoricoActivity : AppCompatActivity() {
     }
 
     fun addContas() {
+        contas.clear()
         var contasJson = shaPrefHelper.getText(this, shaPrefKey)
         if(!contasJson.isNullOrBlank()) {
             var gson = GsonBuilder().create()
