@@ -17,4 +17,9 @@ class SharedPreferencesHelper {
         var sharedPreferences = context.getSharedPreferences(prefsName, 0)
         return sharedPreferences.getString(key, "")
     }
+
+    fun clean(context: Context) {
+        var sharedPreferences = context.getSharedPreferences(prefsName, 0)
+        sharedPreferences.edit().clear().commit()
+    }
 }

@@ -25,6 +25,12 @@ class HistoricoActivity : AppCompatActivity() {
 
         var actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        btLimpaHistorico.setOnClickListener {
+            shaPrefHelper.clean(this)
+            contasTxt.clear()
+            rv_contas.adapter.notifyDataSetChanged()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        contas = ArrayList<Conta>()
+
         if(contas == null || contas.size == 0) {
             var contasJson = shaPrefHelper.getText(this, shaPrefKey)
             if(!contasJson.isNullOrBlank()) {
